@@ -21,7 +21,7 @@
       "default-case": "error",
       "no-fallthrough": "error",
       "no-unused-vars": "error",
-      "no-use-before-define": "error",
+      "no-use-before-define": "warn",
       "no-redeclare": "error",
       "camelcase": "error",
       "brace-style": "error",
