@@ -58,3 +58,18 @@ You are required to submit the following:
 * The URL of the deployed application
 
 * The URL of the GitHub repository
+
+Group Project Proposal - Movie Madness
+
+* Displaying all things movies
+
+* Concept
+   - Have user select different genres of movies in one place.
+   - With various choices in today's world, we would like to make it easier for the user to choose which movies they would like to watch, favorite them, and stash it away for the future if needed.
+   - Users - Everyone
+
+Process
+  - CSS Framework - Materialize
+  - API - https://www.themoviedb.org/
+  - NPM - Express, Mysql, sequelize, passport, eslint
+  
