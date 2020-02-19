@@ -1,18 +1,18 @@
 {
   "name": "1-Passport-Example",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Application Requirements",
   "main": "server.js",
   "scripts": {
     "test": "npm run lint",
     "start": "node server.js",
-    "lint": "eslint --quiet .",
+    "lint": "eslint **/*.js --quiet",
     "fix": "eslint --fix .",
     "watch": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "2.4.3",
     "express": "^4.17.0",
@@ -31,5 +31,13 @@
     "eslint-plugin-prettier": "^2.6.2",
     "mocha": "^5.2.0",
     "prettier": "^1.13.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apereira91/project2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/apereira91/project2/issues"
+  },
+  "homepage": "https://github.com/apereira91/project2#readme"
 }
