@@ -3,6 +3,10 @@ form.login {
   margin-top: 50px;
 }
 
+.search {
+  margin-top: 1rem; 
+}
+
 body {
   background-color: #eee;
   transition: color 1s ease, background-color 1s ease;
