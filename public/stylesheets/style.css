@@ -60,3 +60,23 @@ nav {
 	border: black;
 	height: 2.5rem !important;
 }
+
+.card-badge {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  padding: .5rem 1.5rem;
+  color: #fff;
+  z-index: 1;
+}
+
+.card-badge--action {
+	background-color: #2196F3;
+}
+
+.card-badge--adventure {
+	background-color: #4CAF50;
+}
