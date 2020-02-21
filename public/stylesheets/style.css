@@ -3,6 +3,10 @@ form.login {
   margin-top: 50px;
 }
 
+.search {
+  margin-top: 1rem;
+}
+
 body {
   background-color: #eee;
   transition: color 1s ease, background-color 1s ease;
@@ -48,4 +52,11 @@ body.dark .collection .collection-item {
 
 nav {
   margin-bottom: 2rem;
+}
+
+.search {
+	background-color: white !important;
+	border-radius: .25rem !important;
+	border: black;
+	height: 2.5rem !important;
 }
