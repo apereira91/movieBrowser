@@ -4,7 +4,7 @@ form.login {
 }
 
 .search {
-  margin-top: 1rem; 
+  margin-top: 1rem;
 }
 
 body {
@@ -52,4 +52,11 @@ body.dark .collection .collection-item {
 
 nav {
   margin-bottom: 2rem;
+}
+
+.search {
+	background-color: white !important;
+	border-radius: .25rem !important;
+	border: black;
+	height: 2.5rem !important;
 }
