@@ -1,8 +1,6 @@
-INSERT INTO watchList(movieTitle, watched)
-VALUES ("The Book of Eli", TRUE)
+USE watchList_db;
 
-INSERT INTO watchList(movieTitle, watched)
-VALUES ("Fight Club", TRUE)
+INSERT INTO Genres (name, userid, createdAt, updatedAt)
+VALUES ("Gladiator", 1, curdate(), curdate()), ("Casino", 1, curdate(), curdate()), ("Goodfellas", 1, curdate(), curdate());
 
-INSERT INTO watchList(movieTitle, watched)
-VALUES ("Star Wars", FALSE)
+SELECT * FROM watchList_db.Genres;

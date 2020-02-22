@@ -1,17 +1,19 @@
-/* eslint-disable linebreak-style */
 module.exports = function (sequelize, DataTypes) {
   var Genre = sequelize.define("Genre", {
     name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    // The genreid comes from tmdb
-    genreid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
     }
   });
-    // need to call sequelize.synch but only for this table
+  Genre.associate = function(models) {
+    // We're saying that a Post should belong to an Author
+    // A Post can't be created without an Author due to the foreign key constraint
+    Genre.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+  // need to call sequelize.synch but only for this table
   return Genre;
 };
