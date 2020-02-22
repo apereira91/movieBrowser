@@ -4,13 +4,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    // The genreid comes from tmdb 
+    // The genreid comes from tmdb
     genreid: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     }
   });
-    // need to call sequelize.synch but only for this table 
+    // need to call sequelize.synch but only for this table
   return Genre;
 };
