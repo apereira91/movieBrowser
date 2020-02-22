@@ -3,10 +3,6 @@ form.login {
   margin-top: 50px;
 }
 
-.search {
-  margin-top: 1rem;
-}
-
 body {
   background-color: #eee;
   transition: color 1s ease, background-color 1s ease;
@@ -51,7 +47,15 @@ body.dark .collection .collection-item {
 }
 
 nav {
-  margin-bottom: 2rem;
+	margin-bottom: 2rem;
+}
+
+.rating {
+	min-width: 2.5rem;
+	background-color: #212529 !important;
+	border: 2px solid #28a745;
+	color: #ffc107;
+	pointer-events: none;
 }
 
 .search {
@@ -59,6 +63,10 @@ nav {
 	border-radius: .25rem !important;
 	border: black;
 	height: 2.5rem !important;
+}
+
+.search-btn {
+	margin-left: -50px;
 }
 
 .card-badge {
@@ -79,4 +87,146 @@ nav {
 
 .card-badge--adventure {
 	background-color: #4CAF50;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.justify-content-between {
+	justify-content: space-between;
+}
+
+
+
+.align-items-start {
+	align-items: flex-start;
+}
+
+.align-items-center {
+	align-items: center;
+}
+
+.justify-content-center {
+	justify-content: center
+}
+
+.movie-info {
+	position: relative;
+}
+
+/* .movie-info--data > div {
+	flex-grow: 1;
+} */
+
+.movie-info--data {
+/* 	height: 100%; */
+	width: 100%;
+	min-height: 100% !important;
+	flex: 1
+}
+
+.movie-info--description {
+	width: 100%;
+}
+
+.movie-info--title {
+	color: #ffc107;
+	font-size: 2.5rem;
+}
+
+.movie-info--rating {
+	position: absolute;
+    top: 7px;
+    right: 7px;
+    margin: 4px;
+    background-color: transparent;
+    padding: 8px;
+    z-index: 3;
+    width: 4rem;
+		height: 4rem;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid #28a745;
+}
+
+.movie-info--overview {
+	font-size: 1.25rem;
+	font-weight: 300;
+	margin-bottom: 1.25rem;
+}
+
+.movie-info--genres {
+	margin-bottom: 1.25rem;
+}
+
+.movie-info--genres > span{
+	margin-right: .75rem;
+}
+
+.genre-badge {
+	font-weight: 200;
+	color: black;
+	background-color: #ffc107;
+	padding: .25rem;
+	border-radius: .25rem;
+	margin-right: .25rem;
+}
+
+.movie-info--stats {
+		background-color: rgba(0, 0, 0, .8);
+		flex-grow: 2;
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    color: white;
+		margin-top: auto;
+}
+
+.cast-row {
+	background-color: white;
+}
+
+.cast-title {
+	color: black;
+	font-size: 2.5rem;
+}
+
+.title-container, .cast-container {
+	padding: 0 1rem;
+}
+
+.cast-member {
+	margin-bottom: 30px;
+  margin-right: 30px;
+  max-width: 150px;
+  text-align: center;
+}
+
+.cast-member--img {
+	width: 100%;
+	vertical-align: middle;
+}
+
+.cast-member--info {
+	background: rgba(0, 0, 0, .1);
+	width: 100%;
+	min-height: 50px;
+	padding: 10px;
+}
+
+.cast-member--name, .cast-member--role {
+	color: black;
 }
