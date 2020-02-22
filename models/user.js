@@ -15,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    //
   });
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function(password) {
@@ -28,4 +29,24 @@ module.exports = function(sequelize, DataTypes) {
   });
   return User;
 };
+
+module.exports = function(sequelize, DataTypes) {
+  var Movie = sequelize.define("Movie", {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    api_Id: {
+      type: DataTypes.STRING
+    },
+  })
+  Movie.associate = function(models) {
+    Movie.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
+    })
+  }
+return Movie;
+}
 
