@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 module.exports = function (sequelize, DataTypes) { 
   var Genre = sequelize.define("Genre", {
     name: {
