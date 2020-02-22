@@ -10,6 +10,7 @@ CREATE TABLE userId(
 CREATE TABLE watchList(
     id INT  PRIMARY KEY AUTO_INCREMENT,
     movieTitle VARCHAR(50),
+    watched BOOLEAN
     watched BOOLEAN,
     FOREIGN KEY(user_id) REFERENCES (userId)
 ) 
