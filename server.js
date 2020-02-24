@@ -5,7 +5,7 @@ var session = require("express-session");
 var passport = require("./config/passport");
 
 var exphbs = require("express-handlebars");
-var mysql = require("mysql2");  
+var mysql = require("mysql2");
 
 // Setting up port and requiring models for syncing
 var PORT = process.env.PORT || 8080;

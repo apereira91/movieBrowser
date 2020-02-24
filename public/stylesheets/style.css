@@ -45,12 +45,17 @@ nav {
 	margin-bottom: 2rem;
 }
 
+nav .nav-wrapper i {
+  line-height: inherit;
+}
+
 .rating {
 	min-width: 2.5rem;
 	background-color: #212529 !important;
 	border: 2px solid #28a745;
 	color: #ffc107;
 	pointer-events: none;
+  z-index: 2;
 }
 
 .search {
