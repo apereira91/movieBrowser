@@ -1,6 +1,6 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
-let handlebars = require('express-handlebars');
+var handlebars = require('express-handlebars');
 // const express = require('express');
 // const app = express();
 
