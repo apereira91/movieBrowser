@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <h2>Sign Up Form</h2>
+      <form class="signup">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span> <span class="msg"></span>
+        </div>
+        <button class="btn waves-effect waves-light red" type="submit" name="submit-btn">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+      <br />
+      <p>Or log in <a href="/login">here</a></p>
+    </div>
+  </div>
+</div>

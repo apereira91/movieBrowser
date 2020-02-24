@@ -45,12 +45,17 @@ nav {
 	margin-bottom: 2rem;
 }
 
+nav .nav-wrapper i {
+  line-height: inherit;
+}
+
 .rating {
 	min-width: 2.5rem;
 	background-color: #212529 !important;
 	border: 2px solid #28a745;
 	color: #ffc107;
 	pointer-events: none;
+  z-index: 2;
 }
 
 .search {
@@ -228,4 +233,14 @@ nav {
 
 .cast-member--name, .cast-member--role {
 	color: black;
+}
+
+.login, .signup {
+  background-color: #d8d8d8;
+  border-radius: .25rem;
+  padding: 1rem;
+}
+
+.login label{;
+  color: black;
 }

@@ -32,6 +32,10 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
+  app.get("/api/:id", function(req,res) {
+    res.render("info");
+  });
+
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", function(req, res) {
     if (!req.user) {
