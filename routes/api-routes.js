@@ -37,11 +37,11 @@ module.exports = function(app) {
     console.log(req.params);  
     var getMovie = "https://api.themoviedb.org/3/movie/" + req.params.id + "?api_key=2649499bd7881ccde384a74d51def54b"; 
     console.log(getMovie);  
-    axios.get(getMovie).then(response => { 
+    axios.get(getMovie).then(function(response) { 
        console.log(response.data); 
        res.render("info", response.data);
     })
-    .catch (err => console.log(err));
+    .catch ( function(err) { console.log(err);} );
 }); 
 
   // Route for getting some data about our user to be used client side
