@@ -131,12 +131,7 @@ nav .nav-wrapper i {
 	position: relative;
 }
 
-/* .movie-info--data > div {
-	flex-grow: 1;
-} */
-
 .movie-info--data {
-/* 	height: 100%; */
 	width: 100%;
 	min-height: 100% !important;
 	flex: 1
@@ -191,7 +186,6 @@ nav .nav-wrapper i {
 
 .movie-info--stats {
 		background-color: rgba(0, 0, 0, .8);
-		flex-grow: 2;
     width: 100%;
     padding: 15px;
     font-size: 1em;
