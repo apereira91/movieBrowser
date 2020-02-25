@@ -3,7 +3,7 @@
 var handlebars = require("express-handlebars");
 // const express = require("express");
 // const app = express();
-const axios = require("axios");  
+var axios = require("axios");  
 
 
 // Requiring our custom middleware for checking if a user is logged in
