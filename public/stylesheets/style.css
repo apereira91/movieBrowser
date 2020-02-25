@@ -55,7 +55,8 @@ nav .nav-wrapper i {
 	border: 2px solid #28a745;
 	color: #ffc107;
 	pointer-events: none;
-  z-index: 2;
+    z-index: 2;
+    font-weight: bold;
 }
 
 .search {
@@ -83,6 +84,8 @@ nav .nav-wrapper i {
 
 .card-badge--action {
 	background-color: #2196F3;
+	height: 2.5rem; 
+	font-size: smaller;  
 }
 
 .card-badge--adventure {
@@ -91,6 +94,10 @@ nav .nav-wrapper i {
 
 .card-action > a {
 	font-size: 1rem;
+}
+
+.card-title { 
+	height: 2.5rem;
 }
 
 .d-flex {
