@@ -44,7 +44,7 @@ module.exports = function(app) {
       .catch ( function(err) {
         console.log(err);
       });
-});
+  });
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", function(req, res) {
