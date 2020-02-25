@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var axios = require("axios");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -33,7 +34,16 @@ module.exports = function(app) {
   });
 
   app.get("/api/:id", function(req,res) {
-    res.render("info");
+    console.log(req.params);
+    var getMovie = "https://api.themoviedb.org/3/movie/" + req.params.id + "?api_key=2649499bd7881ccde384a74d51def54b";
+    console.log(getMovie);
+    axios.get(getMovie).then(function(response) {
+      console.log(response.data);
+      res.render("info", response.data);
+    })
+      .catch ( function(err) {
+        console.log(err);
+      });
   });
 
   // Route for getting some data about our user to be used client side
