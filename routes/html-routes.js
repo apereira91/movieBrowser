@@ -3,8 +3,7 @@
 var handlebars = require("express-handlebars");
 // const express = require("express");
 // const app = express();
-var axios = require("axios");  
-
+var axios = require("axios");
 
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -22,17 +21,17 @@ module.exports = function (app) {
     // res.sendFile(path.join(__dirname, "../public/signup.html"));
 
     // this needs to be the request that was indicated by the user, but the results from any of those
-    // can be passed as shown to the res.render 
+    // can be passed as shown to the res.render
 
-    var trending = 'https://api.themoviedb.org/3/trending/movie/week?api_key=2649499bd7881ccde384a74d51def54b';
+    var trending = "https://api.themoviedb.org/3/trending/movie/week?api_key=2649499bd7881ccde384a74d51def54b";
     axios.get(trending).then( function(response) {
-      // this is the code if we filter by genre 
+      // this is the code if we filter by genre
       // var selectedMovies = response.data.results.filter( movie => {
       //     for (let i=0; i < genreFilter.length; i++) {
       //         // check each genre chosen to see if it matches this movie
-      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;     
+      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
       //     }
-      //     return false;  
+      //     return false;
       // })
       var movies = response.data;
       console.log(movies);
