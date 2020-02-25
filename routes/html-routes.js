@@ -25,7 +25,7 @@ module.exports = function (app) {
     // can be passed as shown to the res.render 
 
     var trending = 'https://api.themoviedb.org/3/trending/movie/week?api_key=2649499bd7881ccde384a74d51def54b';
-    axios.get(trending).then(response => {
+    axios.get(trending).then( function(response) {
       // this is the code if we filter by genre 
       // var selectedMovies = response.data.results.filter( movie => {
       //     for (let i=0; i < genreFilter.length; i++) {

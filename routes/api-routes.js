@@ -35,7 +35,7 @@ module.exports = function(app) {
 
   app.get("/api/:id", function(req,res) {
     console.log(req.params);  
-    let getMovie = `https://api.themoviedb.org/3/movie/${req.params.id}?api_key=2649499bd7881ccde384a74d51def54b`; 
+    var getMovie = `https://api.themoviedb.org/3/movie/${req.params.id}?api_key=2649499bd7881ccde384a74d51def54b`; 
     console.log(getMovie);  
     axios.get(getMovie).then(response => { 
        console.log(response.data); 
