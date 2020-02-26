@@ -6,7 +6,7 @@ var handlebars = require("express-handlebars");
 var axios = require("axios");
 
 // Requiring our custom middleware for checking if a user is logged in
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+// var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
 
