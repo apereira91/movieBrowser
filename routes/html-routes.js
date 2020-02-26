@@ -1,30 +1,38 @@
 // Requiring path to so we can use relative routes to our HTML files
 // var path = require("path");
-var handlebars = require("express-handlebars");
+const handlebars = require("express-handlebars");
 // const express = require("express");
 // const app = express();
-var axios = require("axios");
+const axios = require("axios");
+const lodash = require("lodash"); 
+
+var apikey = "2649499bd7881ccde384a74d51def54b";
+var getTrending = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apikey}`;
+var getUpcoming = `https://api.themoviedb.org/3/movie/upcoming/?api_key=${apikey}`;
+var getPopular = `https://api.themoviedb.org/3/movie/popular/?api_key=${apikey}`;
+var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
+var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apikey}`;
 
 // Requiring our custom middleware for checking if a user is logged in
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+
+var genreListArray = []; 
+var genreIndex = [];  
+
+var getGenres = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apikey}`;  
+axios.get(getGenres).then(response => {
+  genreIndex = response.data.genres;
+  console.log(genreIndex);
+}); 
 
 module.exports = function (app) {
 
   app.engine("handlebars", handlebars({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
 
-  app.get("/", function (req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    // res.sendFile(path.join(__dirname, "../public/signup.html"));
-
-    // this needs to be the request that was indicated by the user, but the results from any of those
-    // can be passed as shown to the res.render
-
-    var trending = "https://api.themoviedb.org/3/trending/movie/week?api_key=2649499bd7881ccde384a74d51def54b";
-    axios.get(trending).then( function(response) {
+  app.get("/", (req, res) => {
+    console.log("in the get / route");  
+    axios.get(getPopular).then(function (response) {
       // this is the code if we filter by genre
       // var selectedMovies = response.data.results.filter( movie => {
       //     for (let i=0; i < genreFilter.length; i++) {
@@ -34,9 +42,22 @@ module.exports = function (app) {
       //     return false;
       // })
       var movies = response.data;
+
+      // genreListArray = [];
+      // movie.genre_ids.forEach(mgid => {
+      //   var i = lodash.findIndex(genreIndex, g => {
+      //     return g.id === mgid;
+      //   });
+      //   // console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name); 
+      //   genreListArray.push(genreIndex[i].name);
+      // });
+      // movie.genreList = genreListArray.join(", ");
+      // console.log("movie.genreList: " + movie.genreList);
+
       console.log(movies);
       res.render("index", movies);
-    });
+    })
+    .catch( err => console.log(err));
   });
 
   app.get("/sign-up", function (req, res) {
@@ -55,8 +76,42 @@ module.exports = function (app) {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members", isAuthenticated, function (req, res) {
+
     // res.sendFile(path.join(__dirname, "../public/members.html"));
     res.render("members");
   });
 
-};
+  app.get("/playing", (req, res) => {
+    axios.get(getPlaying).then(function (response) {
+      // this is the code if we filter by genre
+      // var selectedMovies = response.data.results.filter( movie => {
+      //     for (let i=0; i < genreFilter.length; i++) {
+      //         // check each genre chosen to see if it matches this movie
+      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
+      //     }
+      //     return false;
+      // })
+      var movies = response.data;
+      console.log(movies);
+      res.render("index", movies);
+    });
+  });
+
+
+  app.get("/trending", (req, res) => {
+    axios.get(getTrending).then( response => {
+      // this is the code if we filter by genre
+      // var selectedMovies = response.data.results.filter( movie => {
+      //     for (let i=0; i < genreFilter.length; i++) {
+      //         // check each genre chosen to see if it matches this movie
+      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
+      //     }
+      //     return false;
+      // })
+      var movies = response.data;
+      console.log(movies);
+      res.render("index", movies);
+    });
+});
+
+}
