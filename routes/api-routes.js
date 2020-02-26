@@ -2,9 +2,7 @@
 var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
-var lodash = require("lodash"); 
 
-var genreIndex = [];
 var getGenres = 'https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b';  
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
 var genreListArray = [];
@@ -45,7 +43,7 @@ module.exports = function (app) {
     console.log(getMovie);
     axios.get(getMovie).then(function (response) {
       let movie = response.data;
-      console.log(movie);  
+      console.log(movie);
       genreListArray = [];
       movie.genres.forEach(g => {
         genreListArray.push(g.name);
