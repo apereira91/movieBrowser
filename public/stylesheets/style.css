@@ -55,8 +55,9 @@ nav .nav-wrapper i {
 	border: 2px solid #28a745;
 	color: #ffc107;
 	pointer-events: none;
-    z-index: 2;
-    font-weight: bold;
+  z-index: 2;
+  font-weight: bold;
+  text-align: center;
 }
 
 .search {
@@ -84,8 +85,8 @@ nav .nav-wrapper i {
 
 .card-badge--action {
 	background-color: #2196F3;
-	height: 2.5rem; 
-	font-size: smaller;  
+	height: 2.5rem;
+	font-size: smaller;
 }
 
 .card-badge--adventure {
@@ -96,8 +97,18 @@ nav .nav-wrapper i {
 	font-size: 1rem;
 }
 
-.card-title { 
-	height: 2.5rem;
+.card-title {
+  height: 3rem;
+  margin-top: .75rem;
+}
+
+.card-title p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: .5rem;
 }
 
 .d-flex {
@@ -141,7 +152,8 @@ nav .nav-wrapper i {
 .movie-info--data {
 	width: 100%;
 	min-height: 100% !important;
-	flex: 1
+	flex: 1;
+  background-color: rgba(0,0,0,.5);
 }
 
 .movie-info--description {
@@ -167,6 +179,8 @@ nav .nav-wrapper i {
     border-radius: 50%;
     border: 2px solid #28a745;
 }
+
+.movie-in
 
 .movie-info--overview {
 	font-size: 1.25rem;
