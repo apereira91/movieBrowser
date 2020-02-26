@@ -3,7 +3,7 @@ var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
 
-var getGenres = 'https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b';  
+var getGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b";  
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
 var genreListArray = [];
 
