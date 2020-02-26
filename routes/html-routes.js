@@ -14,7 +14,9 @@ var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apike
 var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apikey}`;
 
 // Requiring our custom middleware for checking if a user is logged in
+
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+// var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 var genreListArray = []; 
 var genreIndex = [];  
@@ -67,7 +69,7 @@ module.exports = function (app) {
   app.get("/login", function (req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/", {isAuthenticated: true});
     }
     // res.sendFile(path.join(__dirname, "../public/login.html"));
     res.render("login");
@@ -75,11 +77,11 @@ module.exports = function (app) {
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/members", isAuthenticated, function (req, res) {
 
-    // res.sendFile(path.join(__dirname, "../public/members.html"));
-    res.render("members");
-  });
+  // app.get("/members", isAuthenticated, function (req, res) {
+  //   // res.sendFile(path.join(__dirname, "../public/members.html"));
+  //   res.render("members");
+  // });
 
   app.get("/playing", (req, res) => {
     axios.get(getPlaying).then(function (response) {
