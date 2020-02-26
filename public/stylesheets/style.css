@@ -94,7 +94,15 @@ nav .nav-wrapper i {
 }
 
 .card-action > a {
-	font-size: 1rem;
+	font-size: .85rem;
+}
+
+.card-action > a > i {
+  font-size: .85rem;
+}
+
+i.left {
+  margin-right: .5rem;
 }
 
 .card-title {

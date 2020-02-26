@@ -1,4 +1,4 @@
-<div class="col s12 m6 l4">
+<div class="col s12 m3">
   <div class="card" data-movieid="{{id}}">
     <a href= "/api/{{id}}">
     <div class="card-image">
@@ -10,7 +10,11 @@
       <h4 class="card-title"><p>{{title}}</p></h4>
     </div>
     <div class="card-action d-flex justify-content-center align-items-center">
-      <a class="waves-effect waves-light btn green add-watchlist-btn"><i class="material-icons left">bookmark_border</i>Add to watchlist</a>
+      {{#if inWatchlist}}
+      <a class="waves-effect waves-light btn green add-watchlist-btn"><<i class="left fas fa-bookmark"></i>Remove from watchlist</a>
+      {{else}}
+      <a class="waves-effect waves-light btn green add-watchlist-btn"><i class="left far fa-bookmark"></i>Add to watchlist</a>
+      {{/if}}
     </div>
     </a>
   </div>
