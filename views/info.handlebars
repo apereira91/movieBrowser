@@ -7,7 +7,7 @@
 		</div>
 		<div class='col s8 m8 movie-info--data d-flex flex-column justify-content-between align-items-start'>
 			<div class='movie-info--description'>
-				<h2 class='movie-info--title'>{{original-title}}</h2>
+				<h2 class='movie-info--title'>{{title}}</h2>
 				<p class='movie-info--tagline'>{{tagline}}</p>
 				<div class='movie-info--control'>
 					<div class='movie-info--rating d-flex justify-content-center align-items-center'>{{vote_average}}</div>
@@ -16,17 +16,17 @@
 				<p class='movie-info--overview'>{{overview}}</p>
 				<div class='movie-info--genres'>
 					<span>Genres:</span>
-          {{#each genre}}
-					<span class='genre-badge'>{{name}}</span>
-          {{/each}}
+          
+					<span class='genre-badge'>{{genreList}}</span>
+         
 				</div>
 			</div>
 			<div class='movie-info--stats d-flex justify-content-between align-items-center'>
 				<div>
-					<i class="fa fa-clock-o movie__icon" aria-hidden="true"></i>Release date: {{release-date}}
+					<i class="fa fa-clock-o movie__icon" aria-hidden="true"></i>Release date: {{release_date}}
 				</div>
 				<div>
-					<i class="fas fa-history movie__icon" aria-hidden="true"></i>Duration:  {{runtimen}}
+					<i class="fas fa-history movie__icon" aria-hidden="true"></i>Duration:  {{runtime}}
 				</div>
 				<div>
 					<i class="fa fa-money movie__icon" aria-hidden="true"></i>Budget:  {{budget}}
