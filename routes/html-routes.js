@@ -4,18 +4,18 @@ const handlebars = require("express-handlebars");
 // const express = require("express");
 // const app = express();
 const axios = require("axios");
-const lodash = require("lodash"); 
+const lodash = require("lodash");
 
 var apikey = "2649499bd7881ccde384a74d51def54b";
 // var getTrending = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apikey}`;
 var getUpcoming = `https://api.themoviedb.org/3/movie/upcoming/?api_key=${apikey}`;
 var getPopular = `https://api.themoviedb.org/3/movie/popular/?api_key=${apikey}`;
-var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
+// var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
 var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apikey}`;
 
 // Requiring our custom middleware for checking if a user is logged in
 
-const isAuthenticated = require("../config/middleware/isAuthenticated");
+// const isAuthenticated = require("../config/middleware/isAuthenticated");
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 var genreListArray = [];
