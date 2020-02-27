@@ -10,7 +10,7 @@ var apikey = "2649499bd7881ccde384a74d51def54b";
 // var getTrending = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apikey}`;
 var getUpcoming = `https://api.themoviedb.org/3/movie/upcoming/?api_key=${apikey}`;
 var getPopular = `https://api.themoviedb.org/3/movie/popular/?api_key=${apikey}`;
-// var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
+var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
 var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apikey}`;
 
 // Requiring our custom middleware for checking if a user is logged in
@@ -32,7 +32,7 @@ module.exports = function (app) {
   app.engine("handlebars", handlebars({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
 
-  app.get("/", (req, res) => {
+  app.get(["/" , "/popular"], (req, res) => {
     console.log("in the get / route");
     axios.get(getPopular).then( response => {
       // this is the code if we filter by genre
@@ -120,8 +120,8 @@ module.exports = function (app) {
   });
 
 
-  app.get("/trending", (req, res) => {
-    axios.get(getTrending).then( response => {
+  app.get("/toprated", (req, res) => {
+    axios.get(getTopRated).then( response => {
       // this is the code if we filter by genre
       // var selectedMovies = response.data.results.filter( movie => {
       //     for (let i=0; i < genreFilter.length; i++) {
