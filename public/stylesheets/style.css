@@ -76,7 +76,6 @@ nav .nav-wrapper i {
   bottom: 0px;
   width: 100%;
   text-align: left;
-  text-transform: uppercase;
   font-size: 0.9em;
   padding: .5rem 1.5rem;
   color: #fff;
@@ -187,8 +186,6 @@ i.left {
     border-radius: 50%;
     border: 2px solid #28a745;
 }
-
-.movie-in
 
 .movie-info--overview {
 	font-size: 1.25rem;
