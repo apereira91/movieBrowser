@@ -19,9 +19,9 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   User.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
-    User.hasMany(models.Genre, {
+    // Associating User with movies (their watchlist)
+    // When a User is deleted, also delete any associated Movies 
+    User.hasMany(models.Movie, {
       onDelete: "cascade"
     });
   };
