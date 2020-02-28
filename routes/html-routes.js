@@ -131,7 +131,7 @@ module.exports = function (app) {
     Promise.all(promiseArray).then(function (values) {
       for (let i = 0; i < values.length; i++) {
         genreListArray = [];
-        console.log(values[i].data.genres); 
+        console.log(values[i].data.genres);
         values[i].data.genres.forEach(g => {
           genreListArray.push(g.name);
         });
