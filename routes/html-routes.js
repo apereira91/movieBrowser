@@ -16,7 +16,7 @@ var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apik
 // Requiring our custom middleware for checking if a user is logged in
 
 // const isAuthenticated = require("../config/middleware/isAuthenticated");
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+// var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 var genreListArray = [];
 var genreIndex = [];
