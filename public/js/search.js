@@ -8,8 +8,15 @@ $(document).ready(function () {
     event.preventDefault();
     searchTerm = searchInput.val();
     console.log(searchTerm);
-    $.ajax("/api/search/" + searchTerm, {
-      type: "GET"
+    $.ajax({
+      type: "GET",
+      url: "/api/search/" + searchTerm,
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (e) {
+        console.log(e);
+      }
     });
   });
 });
