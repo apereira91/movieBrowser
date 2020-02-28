@@ -27,26 +27,24 @@ axios.get(getGenres).then(response => {
   console.log(genreIndex);
 });
 
-module.exports = function (app) {
+module.exports = function(app) {
 
-  app.engine("handlebars", handlebars({ defaultLayout: "main" }));
+  app.engine("handlebars", handlebars({
+    defaultLayout: "main"
+  }));
   app.set("view engine", "handlebars");
 
-  app.get(["/" , "/popular"], (req, res) => {
-    console.log("in the get / route");
-    axios.get(getPopular).then( response => {
-      // this is the code if we filter by genre
-      // var selectedMovies = response.data.results.filter( movie => {
-      //     for (let i=0; i < genreFilter.length; i++) {
-      //         // check each genre chosen to see if it matches this movie
-      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
-      //     }
-      //     return false;
-      // })
+  app.get("/", (req, res) => {
+    // If the user already has an account send them to the members page
+    // if (req.user) {
+    //   res.redirect("/members");
+    // }
+
+    axios.get(getPopular).then(response => {
       var movies = response.data;
       console.log(movies);
-      console.log ("number of movies returned: ", movies.results.length);
-      for (var i=0; i < movies.results.length; i++) {
+      console.log("number of movies returned: ", movies.results.length);
+      for (var i = 0; i < movies.results.length; i++) {
         console.log(movies.results[i].title, movies.results[i].genre_ids.length);
         genreListArray = [];
         movies.results[i].genre_ids.forEach(mgid => {
@@ -59,11 +57,12 @@ module.exports = function (app) {
         movies.results[i].genreList = genreListArray.join(", ");
         console.log("movie.genreList: " + movies.results[i].genreList);
       }
-
-      // console.log(movies);
+      console.log("req.user", req.user);
+      movies.isAuthenticated = (req.user !== undefined);
+      console.log(movies);
       res.render("index", movies);
     })
-      .catch( err => console.log(err));
+      .catch(err => console.log(err));
   });
 
   app.get("/sign-up", (req, res) => {
@@ -73,7 +72,10 @@ module.exports = function (app) {
   app.get("/login", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/", {isAuthenticated: true});
+      // res.redirect("/", {isAuthenticated: true});
+      res.redirect("/", {
+        isAuthenticated: true
+      });
     }
     // res.sendFile(path.join(__dirname, "../public/login.html"));
     res.render("login");
@@ -83,20 +85,14 @@ module.exports = function (app) {
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
 
   // app.get("/members", isAuthenticated, (req, res) => {
-  //   // res.sendFile(path.join(__dirname, "../public/members.html"));
-  //   res.render("members");
+  // res.sendFile(path.join(__dirname, "../public/members.html"));
+  // app.get("/members", (req, res) => {
+  //
+  //   res.render("index");
   // });
 
   app.get("/playing", (req, res) => {
-    axios.get(getPlaying).then(function (response) {
-      // this is the code if we filter by genre
-      // var selectedMovies = response.data.results.filter( movie => {
-      //     for (let i=0; i < genreFilter.length; i++) {
-      //         // check each genre chosen to see if it matches this movie
-      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
-      //     }
-      //     return false;
-      // })
+    axios.get(getPlaying).then(function(response) {
       var movies = response.data;
       console.log(movies);
       res.render("index", movies);
@@ -104,15 +100,7 @@ module.exports = function (app) {
   });
 
   app.get("/upcoming", (req, res) => {
-    axios.get(getUpcoming).then(function (response) {
-      // this is the code if we filter by genre
-      // var selectedMovies = response.data.results.filter( movie => {
-      //     for (let i=0; i < genreFilter.length; i++) {
-      //         // check each genre chosen to see if it matches this movie
-      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
-      //     }
-      //     return false;
-      // })
+    axios.get(getUpcoming).then(function(response) {
       var movies = response.data;
       console.log(movies);
       res.render("index", movies);
@@ -121,19 +109,26 @@ module.exports = function (app) {
 
 
   app.get("/toprated", (req, res) => {
-    axios.get(getTopRated).then( response => {
-      // this is the code if we filter by genre
-      // var selectedMovies = response.data.results.filter( movie => {
-      //     for (let i=0; i < genreFilter.length; i++) {
-      //         // check each genre chosen to see if it matches this movie
-      //        if (movie.genre_ids.indexOf(genreFilter[i]) != -1 ) return true;
-      //     }
-      //     return false;
-      // })
+    axios.get(getTopRated).then(response => {
       var movies = response.data;
       console.log(movies);
       res.render("index", movies);
     });
+  });
+
+  app.get("/watchlist", (req, res) => {
+    // if (req.user) {
+    //   res.redirect("/login", {isAuthenticated: true});
+    // }
+    console.log("watchlist requested for user", req.user);
+
+    res.render();
+    // axios.get("/api/:userid").then( response => {
+    //   // this api does not yet exist
+    //   var movies = response.data;
+    //   console.log(movies);
+    //   res.render("index", movies);
+    // });
   });
 
 };
