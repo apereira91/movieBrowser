@@ -52,8 +52,8 @@ module.exports = function(app) {
             return g.id === mgid;
           });
           console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
-            genreListArray.push(genreIndex[i].name);
-          });
+          genreListArray.push(genreIndex[i].name);
+        });
         movies.results[i].genreList = genreListArray.join(", ");
         console.log("movie.genreList: " + movies.results[i].genreList);
       }
@@ -62,7 +62,7 @@ module.exports = function(app) {
       console.log(movies);
       res.render("index", movies);
     })
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
   });
 
   app.get("/sign-up", (req, res) => {
