@@ -32,11 +32,10 @@ module.exports = function (app) {
   app.engine("handlebars", handlebars({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
 
-  app.get(["/" , "/popular","/members"], (req, res) => {
-    // If the user already has an account send them to the members page
-    // if (req.user) {
-    //   res.redirect("/members");
-    // }
+
+  app.get(["/" , "/popular"], (req, res) => {
+    console.log("in the get / route");
+
     axios.get(getPopular).then( response => {
       var movies = response.data;
       console.log(movies);
@@ -105,6 +104,7 @@ module.exports = function (app) {
 
   app.get("/toprated", (req, res) => {
     axios.get(getTopRated).then( response => {
+      
       var movies = response.data;
       console.log(movies);
       res.render("index", movies);
