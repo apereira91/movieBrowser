@@ -81,7 +81,7 @@ module.exports = function (app) {
       let movie = response.data.results;
       console.log(response.data);
       console.log(movie);
-      res.render("index", movie);
+      res.json(movie);
     })
       .catch(function (err) {
         console.log(err);
