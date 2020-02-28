@@ -41,28 +41,28 @@ module.exports = function(app) {
     // }
 
     axios.get(getPopular).then(response => {
-        var movies = response.data;
-        console.log(movies);
-        console.log("number of movies returned: ", movies.results.length);
-        for (var i = 0; i < movies.results.length; i++) {
-          console.log(movies.results[i].title, movies.results[i].genre_ids.length);
-          genreListArray = [];
-          movies.results[i].genre_ids.forEach(mgid => {
-            var i = lodash.findIndex(genreIndex, g => {
-              return g.id === mgid;
-            });
-            console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
+      var movies = response.data;
+      console.log(movies);
+      console.log("number of movies returned: ", movies.results.length);
+      for (var i = 0; i < movies.results.length; i++) {
+        console.log(movies.results[i].title, movies.results[i].genre_ids.length);
+        genreListArray = [];
+        movies.results[i].genre_ids.forEach(mgid => {
+          var i = lodash.findIndex(genreIndex, g => {
+            return g.id === mgid;
+          });
+          console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
             genreListArray.push(genreIndex[i].name);
           });
-          movies.results[i].genreList = genreListArray.join(", ");
-          console.log("movie.genreList: " + movies.results[i].genreList);
-        }
-        console.log("req.user", req.user);
-        movies.isAuthenticated = (req.user !== undefined);
-        console.log(movies);
-        res.render("index", movies);
-      })
-      .catch(err => console.log(err));
+        movies.results[i].genreList = genreListArray.join(", ");
+        console.log("movie.genreList: " + movies.results[i].genreList);
+      }
+      console.log("req.user", req.user);
+      movies.isAuthenticated = (req.user !== undefined);
+      console.log(movies);
+      res.render("index", movies);
+    })
+    .catch(err => console.log(err));
   });
 
   app.get("/sign-up", (req, res) => {
