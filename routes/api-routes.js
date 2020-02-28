@@ -49,6 +49,7 @@ module.exports = function (app) {
         genreListArray.push(g.name);
       });
       movie.genreList = genreListArray.join(", ");
+      movie.isAuthenticated = (req.user !== undefined);
       res.render("info", movie);
     })
       .catch(function (err) {
