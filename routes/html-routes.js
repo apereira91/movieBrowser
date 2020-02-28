@@ -27,40 +27,40 @@ axios.get(getGenres).then(response => {
   console.log(genreIndex);
 });
 
-module.exports = function(app) {
+function processList(movies, req) {
+  console.log("number of movies returned: ", movies.results.length);
+  for (var i = 0; i < movies.results.length; i++) {
+    console.log(movies.results[i].title, movies.results[i].genre_ids.length);
+    genreListArray = [];
+    movies.results[i].genre_ids.forEach(mgid => {
+      var i = lodash.findIndex(genreIndex, g => {
+        return g.id === mgid;
+      });
+      console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
+      genreListArray.push(genreIndex[i].name);
+    });
+    movies.results[i].genreList = genreListArray.join(", ");
+    console.log("movie.genreList: " + movies.results[i].genreList);
+  }
+  console.log("req.user", req.user);
+  movies.isAuthenticated = (req.user !== undefined);
+  return movies;
+}
 
-  app.engine("handlebars", handlebars({
-    defaultLayout: "main"
-  }));
+module.exports = function (app) {
+
+  app.engine("handlebars", handlebars({ defaultLayout: "main" }));
   app.set("view engine", "handlebars");
 
-  app.get("/", (req, res) => {
+  app.get(["/", "/popular", "/members"], (req, res) => {
     // If the user already has an account send them to the members page
     // if (req.user) {
     //   res.redirect("/members");
     // }
-
     axios.get(getPopular).then(response => {
       var movies = response.data;
-      console.log(movies);
-      console.log("number of movies returned: ", movies.results.length);
-      for (var i = 0; i < movies.results.length; i++) {
-        console.log(movies.results[i].title, movies.results[i].genre_ids.length);
-        genreListArray = [];
-        movies.results[i].genre_ids.forEach(mgid => {
-          var i = lodash.findIndex(genreIndex, g => {
-            return g.id === mgid;
-          });
-          console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
-          genreListArray.push(genreIndex[i].name);
-        });
-        movies.results[i].genreList = genreListArray.join(", ");
-        console.log("movie.genreList: " + movies.results[i].genreList);
-      }
-      console.log("req.user", req.user);
-      movies.isAuthenticated = (req.user !== undefined);
-      console.log(movies);
-      res.render("index", movies);
+      var movieList = processList(movies, req);
+      res.render("index", movieList);
     })
       .catch(err => console.log(err));
   });
@@ -73,9 +73,7 @@ module.exports = function(app) {
     // If the user already has an account send them to the members page
     if (req.user) {
       // res.redirect("/", {isAuthenticated: true});
-      res.redirect("/", {
-        isAuthenticated: true
-      });
+      res.redirect("/members");
     }
     // res.sendFile(path.join(__dirname, "../public/login.html"));
     res.render("login");
@@ -86,24 +84,24 @@ module.exports = function(app) {
 
   // app.get("/members", isAuthenticated, (req, res) => {
   // res.sendFile(path.join(__dirname, "../public/members.html"));
-  // app.get("/members", (req, res) => {
-  //
-  //   res.render("index");
-  // });
+  app.get("/members", (req, res) => {
+
+    res.render("index");
+  });
 
   app.get("/playing", (req, res) => {
-    axios.get(getPlaying).then(function(response) {
+    axios.get(getPlaying).then(function (response) {
       var movies = response.data;
-      console.log(movies);
-      res.render("index", movies);
+      var movieList = processList(movies, req);
+      res.render("index", movieList);
     });
   });
 
   app.get("/upcoming", (req, res) => {
-    axios.get(getUpcoming).then(function(response) {
+    axios.get(getUpcoming).then(function (response) {
       var movies = response.data;
-      console.log(movies);
-      res.render("index", movies);
+      var movieList = processList(movies, req);
+      res.render("index", movieList);
     });
   });
 
@@ -111,18 +109,16 @@ module.exports = function(app) {
   app.get("/toprated", (req, res) => {
     axios.get(getTopRated).then(response => {
       var movies = response.data;
-      console.log(movies);
-      res.render("index", movies);
+      var movieList = processList(movies, req);
+      res.render("index", movieList);
     });
   });
 
   app.get("/watchlist", (req, res) => {
-    // if (req.user) {
-    //   res.redirect("/login", {isAuthenticated: true});
-    // }
+    if (req.user) {
+      res.redirect("/login", { isAuthenticated: true });
+    }
     console.log("watchlist requested for user", req.user);
-
-    res.render();
     // axios.get("/api/:userid").then( response => {
     //   // this api does not yet exist
     //   var movies = response.data;
