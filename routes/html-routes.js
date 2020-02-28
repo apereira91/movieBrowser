@@ -24,23 +24,20 @@ var genreIndex = [];
 var getGenres = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apikey}`;
 axios.get(getGenres).then(response => {
   genreIndex = response.data.genres;
-  console.log(genreIndex);
+  console.log("genreIndex: ", genreIndex);
 });
 
 function processList(movies, req) {
   console.log("number of movies returned: ", movies.results.length);
   for (var i = 0; i < movies.results.length; i++) {
-    console.log(movies.results[i].title, movies.results[i].genre_ids.length);
     genreListArray = [];
     movies.results[i].genre_ids.forEach(mgid => {
       var i = lodash.findIndex(genreIndex, g => {
         return g.id === mgid;
       });
-      console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
       genreListArray.push(genreIndex[i].name);
     });
     movies.results[i].genreList = genreListArray.join(", ");
-    console.log("movie.genreList: " + movies.results[i].genreList);
   }
   console.log("req.user", req.user);
   movies.isAuthenticated = (req.user !== undefined);
@@ -114,17 +111,41 @@ module.exports = function (app) {
     });
   });
 
+
+
   app.get("/watchlist", (req, res) => {
     if (req.user) {
       res.redirect("/login", { isAuthenticated: true });
     }
     console.log("watchlist requested for user", req.user);
-    // axios.get("/api/:userid").then( response => {
-    //   // this api does not yet exist
-    //   var movies = response.data;
-    //   console.log(movies);
-    //   res.render("index", movies);
-    // });
+
+    // replace with code to get watchlist data
+    var watchList = ["496243", "546554", "359724", "515001"];
+
+    var movieList = [];
+    var promiseArray = [];
+    for (let i = 0; i < watchList.length; i++) {
+      var getMovie = `https://api.themoviedb.org/3/movie/${watchList[i]}?api_key=2649499bd7881ccde384a74d51def54b`;
+      promiseArray.push(axios.get(getMovie));
+    }
+    Promise.all(promiseArray).then(function (values) {
+      for (let i = 0; i < values.length; i++) {
+        genreListArray = [];
+        console.log(values[i].data.genres);
+        values[i].data.genres.forEach(g => {
+          genreListArray.push(g.name);
+        });
+        values[i].data.genreList = genreListArray.join(", ");
+        movieList.push(values[i].data);
+      }
+      console.log(movieList);
+      console.log("watchlist generated:", movieList);
+      var isLoggedIn = (req.user !== undefined);
+      var pageParams = { results: movieList, isAuthenticated: isLoggedIn };
+      console.log(pageParams);
+      res.render("index", pageParams);
+    });
+
   });
 
 };
