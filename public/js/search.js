@@ -8,15 +8,16 @@ $(document).ready(function () {
     event.preventDefault();
     searchTerm = searchInput.val();
     console.log(searchTerm);
-    $.ajax({
-      type: "GET",
-      url: "/api/search/" + searchTerm,
-      success: function (response) {
-        console.log(response);
-      },
-      error: function (e) {
-        console.log(e);
-      }
-    });
+    window.location.replace(`/api/search/${searchTerm}`);
+    // $.ajax({
+    //   type: "GET",
+    //   url: "/api/search/" + searchTerm,
+    //   success: function (response) {
+    //     console.log(response);
+    //   },
+    //   error: function (e) {
+    //     console.log(e);
+    //   }
+    // });
   });
 });

@@ -2,8 +2,10 @@
 var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
+var lodash = require("lodash");
 
 var getGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b";
+var genreIndex = [];
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
 var genreListArray = [];
 
@@ -49,6 +51,7 @@ module.exports = function (app) {
         genreListArray.push(g.name);
       });
       movie.genreList = genreListArray.join(", ");
+      movie.isAuthenticated = (req.user !== undefined);
       res.render("info", movie);
     })
       .catch(function (err) {
@@ -72,16 +75,32 @@ module.exports = function (app) {
   });
 
   //Route for getting some data in the search bar
-  app.get("api/search/:searchstring", function (req, res) {
-    console.log(req.params);
+  app.get("/api/search/:searchstring", function (req, res) {
+    // console.log(req.params);
     var searchTerm = req.params.searchstring.replace(" ", "+");
     var searchMovie = "https://api.themoviedb.org/3/search/movie?api_key=2649499bd7881ccde384a74d51def54b&query=" + searchTerm;
-    console.log(searchMovie);
+    // console.log(searchMovie);
     axios.get(searchMovie).then(function (response) {
-      let movie = response.data.results;
-      console.log(response.data);
-      console.log(movie);
-      res.json(movie);
+      let movies = response.data;
+      // console.log(movies);
+      // need to do the genre merging
+      genreListArray = [];
+      for (let i = 0; i < movies.results.length; i++) {
+        console.log(movies.results[i].genre_ids);
+        genreListArray = [];
+        movies.results[i].genre_ids.forEach(mgid => {
+          var i = lodash.findIndex(genreIndex, g => {
+            return g.id === mgid;
+          });
+          console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
+          genreListArray.push(genreIndex[i].name);
+        });
+        movies.results[i].genreList = genreListArray.join(", ");
+      }
+      movies.searchstring = req.params.searchstring;
+      movies.isAuthenticated = (req.user !== undefined);
+      console.log("Data to pass to search handlebar: \n", movies);
+      res.render("search", movies);
     })
       .catch(function (err) {
         console.log(err);
