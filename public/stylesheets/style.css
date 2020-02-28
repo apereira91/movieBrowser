@@ -49,6 +49,10 @@ nav .nav-wrapper i {
   line-height: inherit;
 }
 
+li > a {
+	font-weight: 500;
+}
+
 .rating {
 	min-width: 2.5rem;
 	background-color: #212529 !important;
