@@ -105,8 +105,10 @@ module.exports = function (app) {
       .catch(function (err) {
         console.log(err);
       });
-      
-  app.post("/api/", function(req, res) {
+
+  });
+
+  app.post("/api/", function (req, res) {
     console.log(req.body);
 
     db.Movie.create({
@@ -115,8 +117,9 @@ module.exports = function (app) {
       UserId: req.user.id
     }).then(data => {
       console.log(data);
-    }).catch(err=> {
+    }).catch(err => {
       res.status(401).json(err);
     });
   });
+
 };
