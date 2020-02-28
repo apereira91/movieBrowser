@@ -6,7 +6,11 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="https://github.com/apereira91/project2"><i class="fab fa-github"></i></a></li>
+				{{#if isAuthenticated}}
+				<li><a href='/' class="waves-effect waves-light btn red">Log Out<i class="fas fa-sign-out-alt fa-xs right"></i></a></li>
+				{{else}}
         <li><a href='/login' class="waves-effect waves-light btn red">Sign in<i class="fas fa-sign-in-alt fa-xs right"></i></a></li>
+				{{/if}}
       </ul>
     </div>
 	</div>
