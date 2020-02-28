@@ -49,7 +49,6 @@ module.exports = function (app) {
         genreListArray.push(g.name);
       });
       movie.genreList = genreListArray.join(", ");
-      movie.isAuthenticated = (req.user !== undefined);
       res.render("info", movie);
     })
       .catch(function (err) {
@@ -73,7 +72,7 @@ module.exports = function (app) {
   });
 
   //Route for getting some data in the search bar
-  app.get("/api/search/:searchstring", function (req, res) {
+  app.get("api/search/:searchstring", function (req, res) {
     console.log(req.params);
     var searchTerm = req.params.searchstring.replace(" ", "+");
     var searchMovie = "https://api.themoviedb.org/3/search/movie?api_key=2649499bd7881ccde384a74d51def54b&query=" + searchTerm;
@@ -82,7 +81,7 @@ module.exports = function (app) {
       let movie = response.data.results;
       console.log(response.data);
       console.log(movie);
-      res.render("info", movie);
+      res.render("index", movie);
     })
       .catch(function (err) {
         console.log(err);

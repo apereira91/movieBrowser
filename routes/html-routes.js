@@ -13,6 +13,7 @@ var getPopular = `https://api.themoviedb.org/3/movie/popular/?api_key=${apikey}`
 var getTopRated = `https://api.themoviedb.org/3/movie/top_rated/?api_key=${apikey}`;
 var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apikey}`;
 
+
 // Requiring our custom middleware for checking if a user is logged in
 
 // const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -127,4 +128,11 @@ module.exports = function (app) {
     // });
   });
 
+  app.get("/search/:searchTerm", (req,res) => {
+    if (req.user) {
+      res.redirect("/search", {isAuthenticated: true});
+    }
+    res.render("/search");
+  });
 };
+

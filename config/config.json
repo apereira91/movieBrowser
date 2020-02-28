@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Y7'zA@5q",
+    "password": "password",
     "database": "watchlist_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
