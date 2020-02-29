@@ -122,4 +122,15 @@ module.exports = function (app) {
     });
   });
 
+  app.delete("/api/movie/:id", function (req, res) {
+    //console.log(req.params.id);
+    res.json(req.params.id);
+    db.Movie.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbMovie) {
+      res.json(dbMovie);
+    });
+  });
 };
