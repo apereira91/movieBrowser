@@ -46,7 +46,7 @@ $(document).ready(function () {
   function removeMovieData(id, name) {
     $.ajax({
       method: "DELETE",
-      url: "/api/movie" + id
+      url: "/api/movie/" + movieid
     }).then(function () {
       getMovie(id, name);
     });
