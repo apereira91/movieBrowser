@@ -51,6 +51,18 @@ module.exports = function (app) {
         genreListArray.push(g.name);
       });
       movie.genreList = genreListArray.join(", ");
+      // fill in full path to pictures, use default picture if none provided
+      if (movie.backdrop_path !== null) {
+        movie.backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.backdrop_path;
+      } else {
+        movie.backdrop_path = "http://localhost:8080/assets/default.png";
+      }
+
+      if (movie.poster_path !== null) {
+        movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path;
+      } else {
+        movie.poster_path = "http://localhost:8080/assets/default.png";
+      }
       movie.isAuthenticated = (req.user !== undefined);
       res.render("info", movie);
     })
@@ -86,20 +98,32 @@ module.exports = function (app) {
       // need to do the genre merging
       genreListArray = [];
       for (let i = 0; i < movies.results.length; i++) {
-        console.log(movies.results[i].genre_ids);
         genreListArray = [];
         movies.results[i].genre_ids.forEach(mgid => {
           var i = lodash.findIndex(genreIndex, g => {
             return g.id === mgid;
           });
-          console.log("In movie: " + mgid + "   In genreIndexArray: " + genreIndex[i].name);
           genreListArray.push(genreIndex[i].name);
         });
         movies.results[i].genreList = genreListArray.join(", ");
+
+        // fill in full path to pictures, use default picture if none provided
+
+        if (movies.results[i].backdrop_path !== null) {
+          movies.results[i].backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].backdrop_path;
+        } else {
+          movies.results[i].backdrop_path = "http://localhost:8080/assets/default.png";
+        }
+
+        if (movies.results[i].poster_path !== null) {
+          movies.results[i].poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].poster_path;
+        } else {
+          movies.results[i].poster_path = "http://localhost:8080/assets/default.png";
+        }
       }
       movies.searchstring = req.params.searchstring;
       movies.isAuthenticated = (req.user !== undefined);
-      console.log("Data to pass to search handlebar: \n", movies);
+
       res.render("search", movies);
     })
       .catch(function (err) {
