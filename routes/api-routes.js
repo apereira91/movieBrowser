@@ -146,4 +146,16 @@ module.exports = function (app) {
     });
   });
 
+  app.delete("/api/movie/:id", function (req, res) {
+    //console.log(req.params.id);
+    res.json(req.params.id);
+    console.log(req.params.id,"id");
+    db.Movie.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbMovie) {
+      console.log(dbMovie);
+    });
+  });
 };
