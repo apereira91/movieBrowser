@@ -128,9 +128,9 @@ module.exports = function (app) {
 
 
   app.get("/watchlist", (req, res) => {
-    if (req.user) {
-      res.redirect("/login", { isAuthenticated: true });
-    }
+    // if (req.user) {
+    //   res.redirect("/login", { isAuthenticated: true });
+    // }
 
     // replace with code to get watchlist data
     var watchList = ["496243", "546554", "359724", "515001"];
