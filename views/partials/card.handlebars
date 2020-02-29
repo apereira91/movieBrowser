@@ -11,7 +11,7 @@
     </div>
     <div class="card-action d-flex justify-content-center align-items-center">
       {{#if inWatchlist}}
-      <a class="waves-effect waves-light btn green add-watchlist-btn"><i class="left fas fa-bookmark"></i>Remove from watchlist</a>
+      <a class="waves-effect waves-light btn green remove-watchlist-btn" data-movieid="{{id}}"><i class="left fas fa-bookmark"></i>Remove from watchlist</a>
       {{else}}
       <a class="waves-effect waves-light btn green add-watchlist-btn" data-movieid="{{id}}"><i class="left far fa-bookmark"></i>Add to watchlist</a>
       {{/if}}
