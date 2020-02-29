@@ -1,75 +1,68 @@
 # Project 2
 
+## Movie Browser - Everything Movies 
+
+Our project is an application that shows you movies.  You can filter the movies shown by several different criteria: 
+
+* popular
+* now playing 
+* upcoming 
+* top-rated  (based on user ratings)
+* search keywords 
+
+Users can login and then save watch lists, including deleting movies from their watch list.  
+
+Target audience:  anyone! 
+
 ## Application Requirements
 
+Our application meets the project requirements: 
+
 * Must use a Node and Express server
-
-* Must be backed by a MySQL database and an ORM (not necessarily Sequelize)
-
+* Used NPM packages - Express, Mysql, sequelize, passport, eslint, lodash
+* Must be backed by a MySQL database and an ORM (we used Sequelize)
 * Must utilize both GET and POST routes for retrieving and adding new data
-
 * Must be deployed using Heroku (with data)
-
-* Must utilize at least one new third-party API
-
+* Must utilize at least one new third-party API - we used The Movie Data Base https://www.themoviedb.org/
 * Must have a polished UI
-
-* Must use a CSS framework _other than_ Bootstrap
-
+* Must use a CSS framework _other than_ Bootstrap - we used Materialize 
 * Must follow MVC paradigm
-
 * Must meet good quality coding standards (indentation, scoping, naming)
-
 * Must use Handlebars.js
 
 
-## Presentation Requirements
+## Presentation  
 
-Use this [project presentation template](https://docs.google.com/presentation/d/1_u8TKy5zW5UlrVQVnyDEZ0unGI2tjQPDEpA0FNuBKAw/edit?usp=sharing) to address the following: 
+Our presentation can be found here:  
+ [project presentation template](https://docs.google.com/presentation/d/1_u8TKy5zW5UlrVQVnyDEZ0unGI2tjQPDEpA0FNuBKAw/edit?usp=sharing) 
 
-* Elevator pitch: a one minute description of your application
+ 
+## Internals 
 
-* Concept: What is your user story? What was your motivation for development?
+The application uses Sequelize to create two tables in the watchList_db: 
+ 
+* Users - has columns id, email, and encrypted password 
+* Movies - has columns id, movie (the key used in the movie database API), and a foreign key of the user who saved that  movie to their watchlist 
 
-* Process: What were the technologies used? How were tasks and roles broken down and assigned? What challenges did you encounter? What were your successes?
+## Routes 
 
-* Demo: Show your stuff!
+* / and /popular - the list of most popular movies
+* /playing - what's now playing 
+* /upcoming - movies being released soon 
+* /toprated - based on user ratings 
 
-* Directions for Future Development
+* /api/:id - returns the details for that movie id 
+* /api/search/:searchstring
 
-* Links to to the deployed application and the GitHub repository
+## Handlebar files 
 
+* index.handlebars is used to display all lists except search results
+* search.handlebar is used to display search results 
+* info.handlebar is used to display a single movie   
+* navbar.handlebar is used to create the navigation bar  
 
-## Grading Metrics 
+## Partials handlebar files  
 
-| Metric        | Weight | 
-| ---           | ---    |
-| Concept       | 10%    |
-| Design        | 20%    |
-| Functionality | 30%    |
-| Collaboration | 30%    |
-| Presentation  | 10%    |
+* card.handlebar is used to display a single movie as a materialize "card" on the index and search pages 
+* movie-info.handlebar is used to display the movie information on the info.handlebar page 
 
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository
-
-Group Project Proposal - Movie Madness
-
-* Displaying all things movies
-
-* Concept
-   - Have user select different genres of movies in one place.
-   - With various choices in today's world, we would like to make it easier for the user to choose which movies they would like to watch, favorite them, and stash it away for the future if needed.
-   - Users - Everyone
-
-Process
-  - CSS Framework - Materialize
-  - API - https://www.themoviedb.org/
-  - NPM - Express, Mysql, sequelize, passport, eslint
-  

@@ -39,6 +39,19 @@ function processList(movies, req) {
       genreListArray.push(genreIndex[i].name);
     });
     movies.results[i].genreList = genreListArray.join(", ");
+
+    // fill in full path to pictures, use default picture if none provided 
+    if (movies.results[i].backdrop_path !== null) {
+      movies.results[i].backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].backdrop_path;
+    } else {
+      movies.results[i].backdrop_path = "http://localhost:8080/assets/default.png";
+    }
+    
+    if (movies.results[i].poster_path !== null) {
+      movies.results[i].poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].poster_path;
+    } else {
+      movies.results[i].poster_path = "http://localhost:8080/assets/default.png";
+    }
   }
   console.log("req.user", req.user);
   movies.isAuthenticated = (req.user !== undefined);
@@ -118,7 +131,6 @@ module.exports = function (app) {
     if (req.user) {
       res.redirect("/login", { isAuthenticated: true });
     }
-    console.log("watchlist requested for user", req.user);
 
     // replace with code to get watchlist data
     var watchList = ["496243", "546554", "359724", "515001"];
@@ -130,6 +142,7 @@ module.exports = function (app) {
       promiseArray.push(axios.get(getMovie));
     }
     Promise.all(promiseArray).then(function (values) {
+      // loop for each movie
       for (let i = 0; i < values.length; i++) {
         genreListArray = [];
         console.log(values[i].data.genres);
@@ -138,6 +151,19 @@ module.exports = function (app) {
         });
         values[i].data.genreList = genreListArray.join(", ");
         movieList.push(values[i].data);
+
+        // fill in full path to pictures, use default picture if none provided 
+        if (values[i].data.backdrop_path !== null) {
+          values[i].data.backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + values[i].data.backdrop_path;
+        } else {
+          values[i].data.backdrop_path = "http://localhost:8080/assets/default.png";
+        }
+        
+        if (values[i].data.poster_path !== null) {
+          values[i].data.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + values[i].data.poster_path;
+        } else {
+          values[i].data.poster_path = "http://localhost:8080/assets/default.png";
+        }
       }
       console.log(movieList);
       console.log("watchlist generated:", movieList);
