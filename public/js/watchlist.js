@@ -7,17 +7,17 @@ $(document).ready(function () {
     //console.log($(this));
     event.preventDefault();
     let movieId = $(this).attr("data-movieid");
-    let movieName = $(this).parent().parent().children(".card-content").children().children().text();
-    console.log(movieName);
+    // let movieName = $(this).parent().parent().children(".card-content").children().children().text();
     console.log(movieId);
-    movieId && addMovieData(movieId, movieName);
+    // if not logged in, pop up a modal to make them log in
+
+    movieId && addMovieData(movieId);
     !movieId && alert("No Movie");
   });
 
-  function addMovieData(id, name) {
-    $.post("/api/", {
-      id: id,
-      title: name
+  function addMovieData(movieId) {
+    $.post("/api/addwatchlist", {
+      movieId: movieId
     })
       .then(function () {
         window.location.replace("/", { isAuthenticated: true });
@@ -36,19 +36,20 @@ $(document).ready(function () {
       return id;
     });
   }
+
   removeButton.on("click", function (event) {
     event.preventDefault();
     let movieId = $(this).attr("data-movieid");
-    let movieName = $(this).parent().parent().children(".card-content").children().children().text();
-    movieId && addMovieData(movieId, movieName);
-    removeMovieData(id, name);
+    movieId && removeMovieData(movieId);
+    !movieId && alert("No Movie");
   });
-  function removeMovieData(id, name) {
+
+  function removeMovieData(movieId) {
     $.ajax({
       method: "DELETE",
-      url: "/api/movie/" + movieid
+      url: "/api/deletewatchlist/" + movieId
     }).then(function () {
-      getMovie(id, name);
+      getMovie(movieId);
     });
   }
 });

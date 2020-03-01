@@ -1,5 +1,6 @@
 // Requiring path to so we can use relative routes to our HTML files
 // var path = require("path");
+const db = require("../models");
 const handlebars = require("express-handlebars");
 // const express = require("express");
 // const app = express();
@@ -28,6 +29,15 @@ axios.get(getGenres).then(response => {
   console.log("genreIndex: ", genreIndex);
 });
 
+function pictureSource(picture) {
+  if (picture != null) {
+    return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
+  } else {
+    return "http://localhost:8080/assets/default.png";
+  }
+}
+
+
 function processList(movies, req) {
   console.log("number of movies returned: ", movies.results.length);
   for (var i = 0; i < movies.results.length; i++) {
@@ -39,19 +49,8 @@ function processList(movies, req) {
       genreListArray.push(genreIndex[i].name);
     });
     movies.results[i].genreList = genreListArray.join(", ");
-
-    // fill in full path to pictures, use default picture if none provided
-    if (movies.results[i].backdrop_path !== null) {
-      movies.results[i].backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].backdrop_path;
-    } else {
-      movies.results[i].backdrop_path = "http://localhost:8080/assets/default.png";
-    }
-
-    if (movies.results[i].poster_path !== null) {
-      movies.results[i].poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].poster_path;
-    } else {
-      movies.results[i].poster_path = "http://localhost:8080/assets/default.png";
-    }
+    movies.results[i].backdrop_path = pictureSource(movies.results[i].backdrop_path);
+    movies.results[i].poster_path = pictureSource(movies.results[i].poster_path);
   }
   console.log("req.user", req.user);
   movies.isAuthenticated = (req.user !== undefined);
@@ -128,49 +127,54 @@ module.exports = function (app) {
 
 
   app.get("/watchlist", (req, res) => {
+    // Alysia this is where we need to make sure they're logged in!
     // if (req.user) {
     //   res.redirect("/login", { isAuthenticated: true });
     // }
 
+    var query = { "UserId": req.user.id };
+    var watchList = [];
+
     // replace with code to get watchlist data
-    var watchList = ["496243", "546554", "359724", "515001"];
+    db.Movie.findAll({
+      where: query
+    }).then(function (results) {
+      console.log("Results: ", results);
+      results.forEach(m => {
+        console.log(m.dataValues.movieId);
+        watchList.push(m.dataValues.movieId);
+      });
+      console.log("Watchlist array: ", watchList);
 
-    var movieList = [];
-    var promiseArray = [];
-    for (let i = 0; i < watchList.length; i++) {
-      var getMovie = `https://api.themoviedb.org/3/movie/${watchList[i]}?api_key=2649499bd7881ccde384a74d51def54b`;
-      promiseArray.push(axios.get(getMovie));
-    }
-    Promise.all(promiseArray).then(function (values) {
-      // loop for each movie
-      for (let i = 0; i < values.length; i++) {
-        genreListArray = [];
-        console.log(values[i].data.genres);
-        values[i].data.genres.forEach(g => {
-          genreListArray.push(g.name);
-        });
-        values[i].data.genreList = genreListArray.join(", ");
-        movieList.push(values[i].data);
-
-        // fill in full path to pictures, use default picture if none provided
-        if (values[i].data.backdrop_path !== null) {
-          values[i].data.backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + values[i].data.backdrop_path;
-        } else {
-          values[i].data.backdrop_path = "http://localhost:8080/assets/default.png";
-        }
-
-        if (values[i].data.poster_path !== null) {
-          values[i].data.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + values[i].data.poster_path;
-        } else {
-          values[i].data.poster_path = "http://localhost:8080/assets/default.png";
-        }
+      var movieList = [];
+      var promiseArray = [];
+      for (let i = 0; i < watchList.length; i++) {
+        var getMovie = `https://api.themoviedb.org/3/movie/${watchList[i]}?api_key=2649499bd7881ccde384a74d51def54b`;
+        promiseArray.push(axios.get(getMovie));
       }
-      console.log(movieList);
-      console.log("watchlist generated:", movieList);
-      var isLoggedIn = (req.user !== undefined);
-      var pageParams = { results: movieList, isAuthenticated: isLoggedIn };
-      console.log(pageParams);
-      res.render("index", pageParams);
+      Promise.all(promiseArray).then(function (values) {
+        // loop for each movie
+        for (let i = 0; i < values.length; i++) {
+          genreListArray = [];
+          console.log(values[i].data.genres);
+          values[i].data.genres.forEach(g => {
+            genreListArray.push(g.name);
+          });
+          values[i].data.genreList = genreListArray.join(", ");
+          movieList.push(values[i].data);
+
+          // fill in full path to pictures, use default picture if none provided
+          values[i].data.backdrop_path = pictureSource(values[i].data.backdrop_path);
+          values[i].data.poster_path = pictureSource(values[i].data.poster_path);
+          values[i].data.inWatchlist = true;
+        }
+        console.log(movieList);
+        console.log("watchlist generated:", movieList);
+        var isLoggedIn = (req.user !== undefined);
+        var pageParams = { results: movieList, isAuthenticated: isLoggedIn };
+        console.log(pageParams);
+        res.render("index", pageParams);
+      });
     });
 
   });

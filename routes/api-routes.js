@@ -132,27 +132,30 @@ module.exports = function (app) {
 
   });
 
-  app.post("/api/", function (req, res) {
-    console.log(req.body);
-
+  app.post("/api/addwatchlist", function (req, res) {
+    console.log("req.body ", req.body);
+    console.log("req.user ", req.user);  
+    console.log("post /api/addwatchlist ", req.body.movieId, req.user.id);
     db.Movie.create({
-      title: req.body.title,
-      movieId: req.body.id,
+      movieId: req.body.movieId,
       UserId: req.user.id
     }).then(data => {
       console.log(data);
     }).catch(err => {
+      console.log(err);  
       res.status(401).json(err);
     });
   });
 
-  app.delete("/api/movie/:id", function (req, res) {
+  app.delete("/api/deletewatchlist/:movieId", function (req, res) {
     //console.log(req.params.id);
-    res.json(req.params.id);
-    console.log(req.params.id,"id");
+    // res.json(req.params.id);
+    console.log(req.params.movieId,"movieId");
+    console.log("user: ",req.user);  
     db.Movie.destroy({
       where: {
-        id: req.params.id
+        movieId: req.params.movieId,
+        UserId: req.user.id
       }
     }).then(function (dbMovie) {
       console.log(dbMovie);
