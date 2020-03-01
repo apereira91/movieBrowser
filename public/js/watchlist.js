@@ -49,7 +49,7 @@ $(document).ready(function () {
       method: "DELETE",
       url: "/api/deletewatchlist/" + movieId
     }).then(function () {
-      getMovie(movieId);
+      window.location.href("/watchlist");  
     });
   }
 });

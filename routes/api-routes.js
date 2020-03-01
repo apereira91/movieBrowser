@@ -123,7 +123,11 @@ module.exports = function (app) {
       }
       movies.searchstring = req.params.searchstring;
       movies.isAuthenticated = (req.user !== undefined);
-
+      if (movies.results.length === 0) {
+         movies.page_message = "No entries found."; 
+      } else {
+        movies.page_message = "";  
+      }
       res.render("search", movies);
     })
       .catch(function (err) {
@@ -158,7 +162,7 @@ module.exports = function (app) {
         UserId: req.user.id
       }
     }).then(function (dbMovie) {
-      console.log(dbMovie);
+        
     });
   });
 };

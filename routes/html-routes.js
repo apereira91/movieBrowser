@@ -26,7 +26,6 @@ var genreIndex = [];
 var getGenres = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apikey}`;
 axios.get(getGenres).then(response => {
   genreIndex = response.data.genres;
-  console.log("genreIndex: ", genreIndex);
 });
 
 function pictureSource(picture) {
@@ -52,7 +51,11 @@ function processList(movies, req) {
     movies.results[i].backdrop_path = pictureSource(movies.results[i].backdrop_path);
     movies.results[i].poster_path = pictureSource(movies.results[i].poster_path);
   }
-  console.log("req.user", req.user);
+  if (movies.results.length === 0) {
+    movies.page_message = "No entries found.";
+  } else {
+    movies.page_message = "";
+  }
   movies.isAuthenticated = (req.user !== undefined);
   return movies;
 }
@@ -172,6 +175,11 @@ module.exports = function (app) {
         console.log("watchlist generated:", movieList);
         var isLoggedIn = (req.user !== undefined);
         var pageParams = { results: movieList, isAuthenticated: isLoggedIn };
+        if (watchList.length === 0) {
+         pageParams.page_message = "No entries found."; 
+        } else {
+         pageParams.page_message = "";  
+        }
         console.log(pageParams);
         res.render("index", pageParams);
       });
