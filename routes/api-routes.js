@@ -127,9 +127,9 @@ module.exports = function (app) {
       movies.searchstring = req.params.searchstring;
       movies.isAuthenticated = (req.user !== undefined);
       if (movies.results.length === 0) {
-         movies.page_message = "No entries found."; 
+        movies.page_message = "No entries found.";
       } else {
-        movies.page_message = "";  
+        movies.page_message = "";
       }
       res.render("search", movies);
     })
@@ -147,7 +147,7 @@ module.exports = function (app) {
     }).then(data => {
       console.log(data);
     }).catch(err => {
-      console.log(err);  
+      console.log(err);
       res.status(401).json(err);
     });
   });
@@ -156,14 +156,15 @@ module.exports = function (app) {
     //console.log(req.params.id);
     // res.json(req.params.id);
     console.log(req.params.movieId,"movieId");
-    console.log("user: ",req.user);  
+    console.log("user: ",req.user);
     db.Movie.destroy({
       where: {
         movieId: req.params.movieId,
         UserId: req.user.id
       }
-    }).then(function (dbMovie) {
-        
+    }).then(function (msg) {
+      console.log(msg);
+      res.status(200);
     });
   });
 };

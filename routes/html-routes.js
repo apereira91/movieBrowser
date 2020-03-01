@@ -27,7 +27,7 @@ axios.get(getGenres).then(response => {
 });
 
 function pictureSource(picture) {
-  if (picture != null) {
+  if (picture !== null) {
     return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
   } else {
     return "http://localhost:8080/assets/default.png";
@@ -128,7 +128,7 @@ module.exports = function (app) {
 
 
   app.get("/watchlist", isAuthenticated, (req, res) => {
-     
+
     var query = { "UserId": req.user.id };
     var watchList = [];
 
@@ -170,9 +170,9 @@ module.exports = function (app) {
         var isLoggedIn = (req.user !== undefined);
         var pageParams = { results: movieList, isAuthenticated: isLoggedIn };
         if (watchList.length === 0) {
-         pageParams.page_message = "No entries found."; 
+          pageParams.page_message = "No entries found.";
         } else {
-         pageParams.page_message = "";  
+          pageParams.page_message = "";
         }
         console.log(pageParams);
         res.render("index", pageParams);

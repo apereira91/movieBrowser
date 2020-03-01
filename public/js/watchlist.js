@@ -30,12 +30,12 @@ $(document).ready(function () {
     $("alert").fadeIn(500);
   }
 
-  function getMovie() {
-    $.get("/api/:id", function (data) {
-      id = data;
-      return id;
-    });
-  }
+  // function getMovie() {
+  //   $.get("/api/:id", function (data) {
+  //     id = data;
+  //     return id;
+  //   });
+  // }
 
   removeButton.on("click", function (event) {
     event.preventDefault();
@@ -49,7 +49,7 @@ $(document).ready(function () {
       method: "DELETE",
       url: "/api/deletewatchlist/" + movieId
     }).then(function () {
-      window.location.href("/watchlist");  
+      window.location.href("/watchlist");
     });
   }
 });
