@@ -16,9 +16,7 @@ var getPlaying = `https://api.themoviedb.org/3/movie/now_playing/?api_key=${apik
 
 
 // Requiring our custom middleware for checking if a user is logged in
-
-// const isAuthenticated = require("../config/middleware/isAuthenticated");
-// var isAuthenticated = require("../config/middleware/isAuthenticated");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 var genreListArray = [];
 var genreIndex = [];
@@ -129,12 +127,8 @@ module.exports = function (app) {
 
 
 
-  app.get("/watchlist", (req, res) => {
-    // Alysia this is where we need to make sure they're logged in!
-    // if (req.user) {
-    //   res.redirect("/login", { isAuthenticated: true });
-    // }
-
+  app.get("/watchlist", isAuthenticated, (req, res) => {
+     
     var query = { "UserId": req.user.id };
     var watchList = [];
 

@@ -4,6 +4,9 @@ var passport = require("../config/passport");
 var axios = require("axios");
 var lodash = require("lodash");
 
+// Requiring our custom middleware for checking if a user is logged in
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+
 var getGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b";
 var genreIndex = [];
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
@@ -136,9 +139,7 @@ module.exports = function (app) {
 
   });
 
-  app.post("/api/addwatchlist", function (req, res) {
-    console.log("req.body ", req.body);
-    console.log("req.user ", req.user);  
+  app.post("/api/addwatchlist", isAuthenticated, function (req, res) {
     console.log("post /api/addwatchlist ", req.body.movieId, req.user.id);
     db.Movie.create({
       movieId: req.body.movieId,
