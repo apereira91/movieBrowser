@@ -1,10 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
   var Movie = sequelize.define("Movie", {
-    title: {
+    movieId: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    movieId: { type: DataTypes.STRING },
   });
   Movie.associate = function (models) {
     Movie.belongsTo(models.User, {

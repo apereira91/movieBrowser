@@ -4,6 +4,9 @@ var passport = require("../config/passport");
 var axios = require("axios");
 var lodash = require("lodash");
 
+// Requiring our custom middleware for checking if a user is logged in
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+
 var getGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b";
 var genreIndex = [];
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
@@ -123,7 +126,11 @@ module.exports = function (app) {
       }
       movies.searchstring = req.params.searchstring;
       movies.isAuthenticated = (req.user !== undefined);
-
+      if (movies.results.length === 0) {
+        movies.page_message = "No entries found.";
+      } else {
+        movies.page_message = "";
+      }
       res.render("search", movies);
     })
       .catch(function (err) {
@@ -132,30 +139,32 @@ module.exports = function (app) {
 
   });
 
-  app.post("/api/", function (req, res) {
-    console.log(req.body);
-
+  app.post("/api/addwatchlist", isAuthenticated, function (req, res) {
+    console.log("post /api/addwatchlist ", req.body.movieId, req.user.id);
     db.Movie.create({
-      title: req.body.title,
-      movieId: req.body.id,
+      movieId: req.body.movieId,
       UserId: req.user.id
     }).then(data => {
       console.log(data);
     }).catch(err => {
+      console.log(err);
       res.status(401).json(err);
     });
   });
 
-  app.delete("/api/movie/:id", function (req, res) {
+  app.delete("/api/deletewatchlist/:movieId", function (req, res) {
     //console.log(req.params.id);
-    res.json(req.params.id);
-    console.log(req.params.id,"id");
+    // res.json(req.params.id);
+    console.log(req.params.movieId,"movieId");
+    console.log("user: ",req.user);
     db.Movie.destroy({
       where: {
-        id: req.params.id
+        movieId: req.params.movieId,
+        UserId: req.user.id
       }
-    }).then(function (dbMovie) {
-      console.log(dbMovie);
+    }).then(function (msg) {
+      console.log(msg);
+      res.status(200);
     });
   });
 };
