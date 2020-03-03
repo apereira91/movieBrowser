@@ -153,8 +153,6 @@ module.exports = function (app) {
   });
 
   app.delete("/api/deletewatchlist/:movieId", function (req, res) {
-    //console.log(req.params.id);
-    // res.json(req.params.id);
     console.log("DELETE /api/deletewatchlist/:movieId: ", req.params.movieId, " ");
     console.log("user: ",req.user);
     db.Movie.destroy({
@@ -163,7 +161,8 @@ module.exports = function (app) {
         UserId: req.user.id
       }
     }).then(function (msg) {
-      console.log("After delete: ", msg); 
+      console.log("After delete: ", msg);
+      res.send(200);
     });
   });
 };
