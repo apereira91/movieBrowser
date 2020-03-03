@@ -12,6 +12,14 @@ var genreIndex = [];
 axios.get(getGenres).then(response => genreIndex = response.data.genres);
 var genreListArray = [];
 
+function pictureSource(picture) {
+  if (picture !== null) {
+    return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
+  } else {
+    return "http://localhost:8080/assets/default.png";
+  }
+}
+
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -55,17 +63,8 @@ module.exports = function (app) {
       });
       movie.genreList = genreListArray.join(", ");
       // fill in full path to pictures, use default picture if none provided
-      if (movie.backdrop_path !== null) {
-        movie.backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.backdrop_path;
-      } else {
-        movie.backdrop_path = "http://localhost:8080/assets/default.png";
-      }
-
-      if (movie.poster_path !== null) {
-        movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path;
-      } else {
-        movie.poster_path = "http://localhost:8080/assets/default.png";
-      }
+      movie.backdrop_path = pictureSource(movie.backdrop_path);
+      movie.poster_path = pictureSource(movie.poster_path);
       movie.isAuthenticated = (req.user !== undefined);
       res.render("info", movie);
     })
@@ -111,18 +110,8 @@ module.exports = function (app) {
         movies.results[i].genreList = genreListArray.join(", ");
 
         // fill in full path to pictures, use default picture if none provided
-
-        if (movies.results[i].backdrop_path !== null) {
-          movies.results[i].backdrop_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].backdrop_path;
-        } else {
-          movies.results[i].backdrop_path = "http://localhost:8080/assets/default.png";
-        }
-
-        if (movies.results[i].poster_path !== null) {
-          movies.results[i].poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movies.results[i].poster_path;
-        } else {
-          movies.results[i].poster_path = "http://localhost:8080/assets/default.png";
-        }
+        movies.results[i].backdrop_path = pictureSource(movies.results[i].backdrop_path);
+        movies.results[i].poster_path = pictureSource(movies.results[i].poster_path);
       }
       movies.searchstring = req.params.searchstring;
       movies.isAuthenticated = (req.user !== undefined);
