@@ -128,7 +128,12 @@ module.exports = function (app) {
 
   });
 
-  app.post("/api/addwatchlist", isAuthenticated, function (req, res) {
+  app.post("/api/addwatchlist", function (req, res) {
+    if (!req.user) {
+      // if not authenticated, return to browser to go to login page
+      console.log("cannot add to watch list if not logged in");
+      res.status(401); 
+    }
     console.log("post /api/addwatchlist ", req.body.movieId, req.user.id);
     db.Movie.create({
       movieId: req.body.movieId,
