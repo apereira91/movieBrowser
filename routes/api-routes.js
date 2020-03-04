@@ -5,7 +5,7 @@ var axios = require("axios");
 var lodash = require("lodash");
 
 // Requiring our custom middleware for checking if a user is logged in
-const isAuthenticated = require("../config/middleware/isAuthenticated");
+// const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 var getGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=2649499bd7881ccde384a74d51def54b";
 var genreIndex = [];
@@ -128,7 +128,12 @@ module.exports = function (app) {
 
   });
 
-  app.post("/api/addwatchlist", isAuthenticated, function (req, res) {
+  app.post("/api/addwatchlist", function (req, res) {
+    if (!req.user) {
+      // if not authenticated, return to browser to go to login page
+      console.log("cannot add to watch list if not logged in");
+      res.status(401);
+    }
     console.log("post /api/addwatchlist ", req.body.movieId, req.user.id);
     db.Movie.create({
       movieId: req.body.movieId,

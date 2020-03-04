@@ -19,16 +19,20 @@ $(document).ready(function () {
     $.post("/api/addwatchlist", {
       movieId: movieId
     })
-      .then(function () {
-        window.location.replace("/", { isAuthenticated: true });
-      })
-      .catch(handleErr);
+      // .then(function () {
+      //   // window.location.replace("/", { isAuthenticated: true });
+      // })
+      .fail( function (err) {
+        if (err.statusText === "Unauthorized") {
+          window.location.replace("/login");
+        }
+      });
   }
 
-  function handleErr(err) {
-    $("#alert.msg").text(err.responseJSON);
-    $("alert").fadeIn(500);
-  }
+  // function handleErr(err) {
+  //   $("#alert.msg").text(err.responseJSON);
+  //   $("alert").fadeIn(500);
+  // }
 
   // function getMovie() {
   //   $.get("/api/:id", function (data) {
