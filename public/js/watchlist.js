@@ -24,15 +24,15 @@ $(document).ready(function () {
       // })
       .fail( function (err) {
         if (err.statusText === "Unauthorized") {
-          window.location.replace("/login"); 
-        }         
+          window.location.replace("/login");
+        }
       });
   }
 
-  function handleErr(err) {
-    $("#alert.msg").text(err.responseJSON);
-    $("alert").fadeIn(500);
-  }
+  // function handleErr(err) {
+  //   $("#alert.msg").text(err.responseJSON);
+  //   $("alert").fadeIn(500);
+  // }
 
   // function getMovie() {
   //   $.get("/api/:id", function (data) {
