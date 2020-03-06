@@ -33,10 +33,9 @@ Our application meets the project requirements:
 
 ## Presentation  
 
-Our presentation can be found here:  
- [project presentation template](https://docs.google.com/presentation/d/1_u8TKy5zW5UlrVQVnyDEZ0unGI2tjQPDEpA0FNuBKAw/edit?usp=sharing) 
+Our presentation can be found here (https://docs.google.com/presentation/d/1rp-eut0BSmu0XBw5rpXWZnLlzF5B4szaab8FGgtGVBY/edit?usp=sharing) 
 
- Heroku Deploy - https://whispering-dawn-54949.herokuapp.com/
+Heroku Deployment - https://whispering-dawn-54949.herokuapp.com/
 
  
 ## Internals 
@@ -48,13 +47,19 @@ The application uses Sequelize to create two tables in the watchList_db:
 
 ## Routes 
 
-* / and /popular - the list of most popular movies
+* /, /popular - the list of most popular movies
 * /playing - what's now playing 
 * /upcoming - movies being released soon 
 * /toprated - based on user ratings 
+* /watchlist - shows watchlist (only displayed on menu bar when user is logged in)
 
+* /api/login - takes returning user to login
+* /api/signup - new user signup 
+* /api/signout - current user signout 
 * /api/:id - returns the details for that movie id 
 * /api/search/:searchstring
+* /api/addwatchlist - adds the movie to the watchlist of the user that is logged in, if not logged in sent to login screen 
+* /api/deletewatchlist/:movieid - deletes the movie from the watchlist of the current user 
 
 ## Handlebar files 
 
@@ -68,3 +73,9 @@ The application uses Sequelize to create two tables in the watchList_db:
 * card.handlebar is used to display a single movie as a materialize "card" on the index and search pages 
 * movie-info.handlebar is used to display the movie information on the info.handlebar page 
 
+## Potential enhancements 
+
+* Let users screen the movies they select by genres
+* Display more than the first page of results 
+* Where a movie is playing near you 
+* Parental controls 
