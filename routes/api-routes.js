@@ -3,6 +3,7 @@ var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
 var lodash = require("lodash");
+var path = require("path");
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -16,7 +17,8 @@ function pictureSource(picture) {
   if (picture !== null) {
     return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
   } else {
-    return "http://localhost:8080/assets/default.png";
+    // return "http://localhost:8080/assets/default.png";
+    return "/assets/default.png";
   }
 }
 
@@ -130,7 +132,7 @@ module.exports = function (app) {
 
   app.post("/api/addwatchlist", function (req, res) {
     if (!req.user) {
-      // if not authenticated, return to browser to go to login page
+      // if not authenticated, return to browser to redirect to login page
       console.log("cannot add to watch list if not logged in");
       res.status(401); 
     }

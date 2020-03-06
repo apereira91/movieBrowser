@@ -6,6 +6,7 @@ const handlebars = require("express-handlebars");
 // const app = express();
 const axios = require("axios");
 const lodash = require("lodash");
+const path = require("path"); 
 
 var apikey = "2649499bd7881ccde384a74d51def54b";
 // var getTrending = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apikey}`;
@@ -30,7 +31,7 @@ function pictureSource(picture) {
   if (picture !== null) {
     return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
   } else {
-    return "http://localhost:8080/assets/default.png";
+    return "/assets/default.png";
   }
 }
 
