@@ -3,7 +3,6 @@ var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
 var lodash = require("lodash");
-var path = require("path");
 
 // Requiring our custom middleware for checking if a user is logged in
 // const isAuthenticated = require("../config/middleware/isAuthenticated");

@@ -6,7 +6,6 @@ const handlebars = require("express-handlebars");
 // const app = express();
 const axios = require("axios");
 const lodash = require("lodash");
-const path = require("path"); 
 
 var apikey = "2649499bd7881ccde384a74d51def54b";
 // var getTrending = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apikey}`;
