@@ -30,7 +30,7 @@ function pictureSource(picture) {
   if (picture !== null) {
     return "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + picture;
   } else {
-    return "http://localhost:8080/assets/default.png";
+    return "/assets/default.png";
   }
 }
 
